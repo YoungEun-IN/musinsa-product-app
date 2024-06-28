@@ -14,12 +14,12 @@ public class Product {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(nullable = false)
-	private String category;
-
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "brand_id", nullable = false)
 	private Brand brand;
+
+	@Column(nullable = false)
+	private String category;
 
 	@Column(nullable = false)
 	private double price;
