@@ -1,5 +1,6 @@
-package com.musinsa.product_app.entities;
+package com.musinsa.product_app.products.entities;
 
+import com.musinsa.product_app.brands.entities.Brand;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

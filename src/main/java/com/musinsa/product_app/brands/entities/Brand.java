@@ -1,4 +1,4 @@
-package com.musinsa.product_app.entities;
+package com.musinsa.product_app.brands.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
