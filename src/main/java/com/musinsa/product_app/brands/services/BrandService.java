@@ -6,6 +6,7 @@ import com.musinsa.product_app.brands.repositories.BrandRepository;
 import com.musinsa.product_app.brands.entities.Brand;
 import com.musinsa.product_app.exceptions.DataNotFoundException;
 import com.musinsa.product_app.products.entities.Product;
+import com.musinsa.product_app.products.services.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,7 @@ import java.util.stream.Collectors;
 public class BrandService {
 
 	private final BrandRepository brandRepository;
+	private final ProductService productService;
 
 	public Brand addBrand(BrandRequest brandRequest) {
 		Brand brand = new Brand();
@@ -37,6 +39,8 @@ public class BrandService {
 		Brand brand = brandRepository.findById(id)
 			.orElseThrow(() -> new DataNotFoundException("Brand not found"));
 
+		List<Product> products = productService.findAllByBrand(brand);
+		productService.deleteAllInBatch(products);
 		brandRepository.delete(brand);
 	}
 

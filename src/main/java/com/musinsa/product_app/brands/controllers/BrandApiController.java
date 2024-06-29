@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/brands")
+@RequestMapping("/api/brands")
 @RequiredArgsConstructor
 @Tag(name = "Brands API", description = "브랜드 관리 api")
 public class BrandApiController {
