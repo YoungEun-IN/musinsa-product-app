@@ -20,14 +20,14 @@ public class Product {
 	private Brand brand;
 
 	@Column(nullable = false)
-	private String category;
+	private String categoryName;
 
 	@Column(nullable = false)
 	private double price;
 
-	public Product(double price, String category, Brand brand) {
+	public Product(double price, String categoryName, Brand brand) {
 		this.price = price;
-		this.category = category;
+		this.categoryName = categoryName;
 		this.brand = brand;
 	}
 }
