@@ -1,8 +1,8 @@
 package com.musinsa.product_app.products.controllers;
 
 import com.musinsa.product_app.products.dtos.CategoryPriceResponse;
+import com.musinsa.product_app.products.dtos.LowestBrandPriceResponse;
 import com.musinsa.product_app.products.dtos.LowestPriceResponse;
-import com.musinsa.product_app.products.dtos.LowestPriceWrapperResponse;
 import com.musinsa.product_app.products.dtos.ProductRequest;
 import com.musinsa.product_app.products.dtos.ProductResponse;
 import com.musinsa.product_app.products.services.ProductService;
@@ -33,30 +33,26 @@ public class ProductApiController {
 
 	@Operation(summary = "카테고리 별 최저가")
 	@GetMapping("/lowest-prices")
-	public ResponseEntity<List<LowestPriceResponse>> getLowestPrices() {
-		List<LowestPriceResponse> response = productService.calculateLowestPrices();
-		return ResponseEntity.ok(response);
+	public ResponseEntity<LowestPriceResponse> getLowestPrices() {
+		return ResponseEntity.ok(productService.getLowestPrices());
 	}
 
 	@Operation(summary = "최저가 판매 브랜드 정보")
-	@GetMapping("/lowest-brand")
-	public ResponseEntity<LowestPriceWrapperResponse> getLowestTotal() {
-		LowestPriceWrapperResponse response = productService.calculateLowestTotal();
-		return ResponseEntity.ok(response);
+	@GetMapping("/lowest-brand-price")
+	public ResponseEntity<LowestBrandPriceResponse> getLowestTotal() {
+		return ResponseEntity.ok(productService.getLowestBrandPrice());
 	}
 
 	@Operation(summary = "카테고리 명 별 상품 가격 정보 조회")
 	@GetMapping("/category/prices")
 	public ResponseEntity<CategoryPriceResponse> getCategoryPrices(@RequestParam String categoryName) {
-		CategoryPriceResponse response = productService.getCategoryPrices(categoryName);
-		return ResponseEntity.ok(response);
+		return ResponseEntity.ok(productService.getCategoryPrices(categoryName));
 	}
 
 	@Operation(summary = "상품 목록 조회")
 	@GetMapping
 	public ResponseEntity<List<ProductResponse>> getProductList() {
-		List<ProductResponse> productList = productService.getProductList();
-		return ResponseEntity.ok(productList);
+		return ResponseEntity.ok(productService.getProductList());
 	}
 
 	@Operation(summary = "상품 추가")
