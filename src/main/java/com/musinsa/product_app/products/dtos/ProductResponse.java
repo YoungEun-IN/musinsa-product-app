@@ -1,12 +1,11 @@
 package com.musinsa.product_app.products.dtos;
 
 import com.musinsa.product_app.products.entities.Product;
-import lombok.*;
+import lombok.Builder;
+import lombok.Data;
 
-@Getter
 @Builder
-@AllArgsConstructor
-@NoArgsConstructor
+@Data
 public class ProductResponse {
 	private Long id;
 	private String category;
