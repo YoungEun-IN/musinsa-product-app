@@ -1,12 +1,12 @@
-INSERT INTO brand (brand_id, name) VALUES (1, 'A');
-INSERT INTO brand (brand_id, name) VALUES (2, 'B');
-INSERT INTO brand (brand_id, name) VALUES (3, 'C');
-INSERT INTO brand (brand_id, name) VALUES (4, 'D');
-INSERT INTO brand (brand_id, name) VALUES (5, 'E');
-INSERT INTO brand (brand_id, name) VALUES (6, 'F');
-INSERT INTO brand (brand_id, name) VALUES (7, 'G');
-INSERT INTO brand (brand_id, name) VALUES (8, 'H');
-INSERT INTO brand (brand_id, name) VALUES (9, 'I');
+INSERT INTO brand (name) VALUES ('A');
+INSERT INTO brand (name) VALUES ('B');
+INSERT INTO brand (name) VALUES ('C');
+INSERT INTO brand (name) VALUES ('D');
+INSERT INTO brand (name) VALUES ('E');
+INSERT INTO brand (name) VALUES ('F');
+INSERT INTO brand (name) VALUES ('G');
+INSERT INTO brand (name) VALUES ('H');
+INSERT INTO brand (name) VALUES ('I');
 
 INSERT INTO product (brand_id, category_name, price) VALUES (1, '상의', 11200);
 INSERT INTO product (brand_id, category_name, price) VALUES (1, '아우터', 5500);

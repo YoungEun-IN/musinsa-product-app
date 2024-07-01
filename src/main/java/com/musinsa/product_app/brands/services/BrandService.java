@@ -2,13 +2,14 @@ package com.musinsa.product_app.brands.services;
 
 import com.musinsa.product_app.brands.dtos.BrandRequest;
 import com.musinsa.product_app.brands.dtos.BrandResponse;
-import com.musinsa.product_app.brands.repositories.BrandRepository;
 import com.musinsa.product_app.brands.entities.Brand;
+import com.musinsa.product_app.brands.repositories.BrandRepository;
 import com.musinsa.product_app.exceptions.DataNotFoundException;
 import com.musinsa.product_app.products.entities.Product;
 import com.musinsa.product_app.products.services.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.support.TransactionTemplate;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,6 +22,7 @@ public class BrandService {
 	private final ProductService productService;
 
 	public Brand addBrand(BrandRequest brandRequest) {
+		TransactionTemplate t;
 		Brand brand = new Brand();
 		brand.setName(brandRequest.getName());
 		return brandRepository.save(brand);

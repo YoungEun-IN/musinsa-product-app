@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Products</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <h3>상품 목록</h3>
+    <table id="products-table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>BrandId</th>
+            <th>CategoryName</th>
+            <th>Price</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+
+<div class="form-container">
+    <h2>상품 추가</h2>
+    <form id="productForm">
+        <div class="form-group">
+            <label for="brandId">Brand ID</label>
+            <input class="form-control" id="brandId" name="brandId" required type="text">
+        </div>
+        <div class="form-group">
+            <label for="categoryName">Category Name</label>
+            <input class="form-control" id="categoryName" name="categoryName" required type="text">
+        </div>
+        <div class="form-group">
+            <label for="price">Price</label>
+            <input class="form-control" id="price" name="price" required type="number">
+        </div>
+        <button class="btn btn-primary" onclick="addProduct()" type="button">Add Product</button>
+    </form>
+</div>
+
+<script>
+    $(document).ready(function() {
+        loadProducts();
+    });
+
+    function loadProducts() {
+        $.get("/api/products", function(data) {
+        console.log(data)
+            var tableBody = $('#products-table tbody');
+            tableBody.empty();
+            data.forEach(function(item) {
+            console.log(item.categoryName)
+                var row = '<tr>' +
+                    '<td>' + item.id + '</td>' +
+                    '<td><input type="number" value="' + item.brandId + '" class="form-control" id="productBrand-' + item.id + '"></td>' +
+                    '<td><input type="text" value="' + item.categoryName + '" class="form-control" id="productCategory-' + item.id + '"></td>' +
+                    '<td><input type="number" value="' + item.price + '" class="form-control" id="productPrice-' + item.id + '"></td>' +
+                    '<td>' +
+                    '<button class="btn btn-primary" onclick="updateProduct(' + item.id + ')">Update</button>' +
+                    '<button class="btn btn-danger" onclick="deleteProduct(' + item.id + ')">Delete</button>' +
+                    '</td>' +
+                    '</tr>';
+                tableBody.append(row);
+            });
+        }).fail(function(data) {
+            alert(data.responseJSON.message);
+        });
+    }
+
+    function addProduct() {
+        var formData = {
+            brandId: $("#brandId").val(),
+            categoryName: $("#categoryName").val(),
+            price: $("#price").val()
+        };
+
+        $.ajax({
+            url: '/api/products',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(formData),
+            success: function () {
+                alert("data added")
+                $('#productForm')[0].reset();
+                getRefresh();
+            },
+            error: function(data) {
+                alert(data.responseJSON.message);
+            }
+        });
+    }
+
+    function updateProduct(id) {
+        var formData = {
+            brandId: $("#productBrand-" + id).val(),
+            categoryName: $("#productCategory-" + id).val(),
+            price: $("#productPrice-" + id).val()
+        };
+
+        $.ajax({
+            url: '/api/products/' + id,
+            type: 'PUT',
+            contentType: 'application/json',
+            data: JSON.stringify(formData),
+            success: function () {
+                alert("data updated")
+                getRefresh();
+            },
+            error: function(data) {
+                alert(data.responseJSON.message);
+            }
+        });
+    }
+
+    function deleteProduct(id) {
+        $.ajax({
+            url: '/api/products/' + id,
+            type: 'DELETE',
+            success: function () {
+                alert("data deleted")
+                getRefresh();
+            },
+            error: function(data) {
+                alert(data.responseJSON.message);
+            }
+        });
+    }
+
+    function searchProducts() {
+        var category = $("#searchCategory").val();
+
+        $.ajax({
+            url: '/api/products/category/prices',
+            type: 'GET',
+            data: { categoryName: category },
+            success: function (data) {
+                var productList = $('#productList');
+                productList.empty();
+                var row = '<tr>' +
+                    '<td>' + data.category + '</td>' +
+                    '<td>' + data.lowest.brand + '</td>' +
+                    '<td>' + data.lowest.price + '</td>' +
+                    '<td>' + data.highest.brand + '</td>' +
+                    '<td>' + data.highest.price + '</td>' +
+                    '</tr>';
+                productList.append(row);
+            },
+            error: function(data) {
+                alert(data.responseJSON.message);
+            }
+        });
+    }
+</script>
+</body>
+</html>

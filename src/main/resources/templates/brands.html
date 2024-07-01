@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Products</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="table-response">
+        <h3>브랜드 목록</h3>
+        <table id="brands-table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
+
+<div class="form-container">
+    <h2>브랜드 추가</h2>
+    <form id="brandForm">
+        <div class="form-group">
+            <label for="brandName">Brand Name</label>
+            <input class="form-control" id="brandName" name="brandName" required type="text">
+        </div>
+        <button class="btn btn-primary" onclick="addBrand()" type="button">Add Brand</button>
+    </form>
+</div>
+
+<script>
+    $(document).ready(function() {
+        loadBrands();
+    });
+
+    function loadBrands() {
+        $.get("/api/brands", function(data) {
+        console.log(data)
+            var tableBody = $('#brands-table tbody');
+            tableBody.empty();
+            data.forEach(function(item) {
+                var row = '<tr>' +
+                    '<td>' + item.id + '</td>' +
+                    '<td><input type="text" value="' + item.name + '" class="form-control" id="brandName-' + item.id + '"></td>' +
+                    '<td>' +
+                    '<button class="btn btn-primary" onclick="updateBrand(' + item.id + ')">Update</button>' +
+                    '<button class="btn btn-danger" onclick="deleteBrand(' + item.id + ')">Delete</button>' +
+                    '</td>' +
+                    '</tr>';
+                tableBody.append(row);
+            });
+        }).fail(function(data) {
+            alert(data.responseJSON.message);
+        });
+    }
+
+    function addBrand() {
+        var formData = {
+            name: $("#brandName").val()
+        };
+
+        $.ajax({
+            url: '/api/brands',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(formData),
+            success: function () {
+                alert("data added")
+                $('#brandForm')[0].reset();
+                loadBrands();
+            },
+            error: function(data) {
+                alert(data.responseJSON.message);
+            }
+        });
+    }
+
+    function updateBrand(id) {
+        var formData = {
+            name: $("#brandName-" + id).val()
+        };
+
+        $.ajax({
+            url: '/api/brands/' + id,
+            type: 'PUT',
+            contentType: 'application/json',
+            data: JSON.stringify(formData),
+            success: function () {
+                alert("data updated")
+                loadBrands();
+            },
+            error: function(data) {
+                alert(data.responseJSON.message);
+            }
+        });
+    }
+
+    function deleteBrand(id) {
+        $.ajax({
+            url: '/api/brands/' + id,
+            type: 'DELETE',
+            success: function () {
+                alert("data deleted")
+                loadBrands();
+            },
+            error: function(data) {
+                alert(data.responseJSON.message);
+            }
+        });
+    }
+</script>
+</body>
+</html>

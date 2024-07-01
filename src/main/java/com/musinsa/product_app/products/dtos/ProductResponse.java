@@ -8,15 +8,15 @@ import lombok.Data;
 @Data
 public class ProductResponse {
 	private Long id;
-	private String category;
+	private String categoryName;
 	private Long brandId;
 	private double price;
 
 	public static ProductResponse fromEntity(Product product) {
 		return ProductResponse.builder()
 				.id(product.getId())
-				.category(product.getCategoryName())
-				.brandId(product.getId())
+				.categoryName(product.getCategoryName())
+				.brandId(product.getBrand().getId())
 				.price(product.getPrice())
 				.build();
 	}
