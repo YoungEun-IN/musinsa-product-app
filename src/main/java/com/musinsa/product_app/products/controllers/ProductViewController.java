@@ -19,4 +19,19 @@ public class ProductViewController {
     public String getProducts() {
         return "products";
     }
+
+    @GetMapping("/category/prices")
+    public String getCategoryPrices() {
+        return "category-prices";
+    }
+
+    @GetMapping("/lowest-brand-price")
+    public String getLowestBrandPrice() {
+        return "lowest-brand-price";
+    }
+
+    @GetMapping("/lowest-prices")
+    public String getLowestPrices() {
+        return "lowest-prices";
+    }
 }

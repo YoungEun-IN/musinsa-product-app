@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Products</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="table-response">
+        <h3>카테고리 별 최저 가격 및 브랜드</h3>
+        <table id="lowest-prices-table">
+            <thead>
+            <tr>
+                <th>Category</th>
+                <th>Brand</th>
+                <th>Price</th>
+            </tr>
+            </thead>
+            <tbody></tbody>
+            <tfoot>
+            <tr>
+                <td>Total</td>
+                <td colspan="2" id="category-total-price"></td>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+         getLowestPricesByCategory();
+    });
+
+    function getLowestPricesByCategory() {
+        $.get("/api/products/lowest-prices", function(data) {
+        console.log(data)
+            var tableBody = $('#lowest-prices-table tbody');
+            tableBody.empty();
+            data.categories.forEach(function(item) {
+                var row = '<tr>' +
+                    '<td>' + item.categoryName + '</td>' +
+                    '<td>' + item.brand + '</td>' +
+                    '<td>' + item.price + '</td>' +
+                    '</tr>';
+                tableBody.append(row);
+            });
+            $('#category-total-price').text(data.totalPrice);
+        }).fail(function(data) {
+            alert(data.responseJSON.message);
+        });
+    }
+</script>
+</body>
+</html>

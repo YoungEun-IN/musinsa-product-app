@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Products</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+<div class="form-container">
+    <h2>카테고리 상품정보</h2>
+    <div class="form-group search-container">
+        <label for="searchCategory">카테고리명</label>
+        <input class="form-control" id="searchCategory" placeholder="Enter category name" type="text">
+        <button class="btn btn-secondary" onclick="searchProducts()" type="button">Search</button>
+    </div>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Category</th>
+            <th>Lowest Brand</th>
+            <th>Lowest Price</th>
+            <th>Highest Brand</th>
+            <th>Highest Price</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody id="productList"></tbody>
+    </table>
+</div>
+
+<script>
+    function searchProducts() {
+        var category = $("#searchCategory").val();
+        console.log(category)
+
+        $.ajax({
+            url: '/api/products/category/prices',
+            type: 'GET',
+            data: { categoryName: category },
+            success: function (data) {
+            console.log(data)
+                var productList = $('#productList');
+                productList.empty();
+                var row = '<tr>' +
+                    '<td>' + data.categoryName + '</td>' +
+                    '<td>' + data.lowest.brand + '</td>' +
+                    '<td>' + data.lowest.price + '</td>' +
+                    '<td>' + data.highest.brand + '</td>' +
+                    '<td>' + data.highest.price + '</td>' +
+                    '</tr>';
+                productList.append(row);
+            },
+            error: function(data) {
+                alert(data.responseJSON.message);
+            }
+        });
+    }
+</script>
+</body>
+</html>

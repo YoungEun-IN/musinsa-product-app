@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Products</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="table-response">
+        <h3>최저가 브랜드 상품 가격 정보</h3>
+        <table id="lowest-total-table">
+            <thead>
+            <tr>
+                <th>Category</th>
+                <th>Price</th>
+            </tr>
+            </thead>
+            <tbody id="lowest-total-body"></tbody>
+            <tfoot>
+            <tr>
+                <td>Brand</td>
+                <td id="total-brand"></td>
+            </tr>
+            <tr>
+                <td>Total</td>
+                <td id="total-price"></td>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        getLowestBrandPrice();
+    });
+
+    function getLowestBrandPrice() {
+        $.get("/api/products/lowest-brand-price", function(data) {
+            var tableBody = $('#lowest-total-body');
+            tableBody.empty();
+            data.lowestPrice.categories.forEach(function(item) {
+                var row = '<tr>' +
+                    '<td>' + item.category + '</td>' +
+                    '<td>' + item.price + '</td>' +
+                    '</tr>';
+                tableBody.append(row);
+            });
+            $('#total-price').text(data.lowestPrice.total);
+            $('#total-brand').text(data.lowestPrice.brand);
+        }).fail(function(data) {
+            alert(data.responseJSON.message);
+        });
+    }
+</script>
+</body>
+</html>

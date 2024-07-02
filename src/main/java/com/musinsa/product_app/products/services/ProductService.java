@@ -153,15 +153,15 @@ public class ProductService {
                         .build());
     }
 
-    private Product getHighestPriceProduct(List<Product> products) {
-        return products.stream()
-                .max(Comparator.comparingDouble(Product::getPrice))
-                .orElseThrow(IllegalStateException::new);
-    }
-
     private Product getLowestPriceProduct(List<Product> products) {
         return products.stream()
                 .min(Comparator.comparingDouble(Product::getPrice))
+                .orElseThrow(IllegalStateException::new);
+    }
+
+    private Product getHighestPriceProduct(List<Product> products) {
+        return products.stream()
+                .max(Comparator.comparingDouble(Product::getPrice))
                 .orElseThrow(IllegalStateException::new);
     }
 }

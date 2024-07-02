@@ -72,7 +72,7 @@ INSERT INTO product (brand_id, category_name, price) VALUES (8, '가방', 2400);
 INSERT INTO product (brand_id, category_name, price) VALUES (8, '모자', 1500);
 INSERT INTO product (brand_id, category_name, price) VALUES (8, '양말', 2200);
 INSERT INTO product (brand_id, category_name, price) VALUES (8, '액세서리', 2100);
-INSERT INTO product (brand_id, category_name, price) VALUES (9, '상의', 10600);
+INSERT INTO product (brand_id, category_name, price) VALUES (9, '상의', 11400);
 INSERT INTO product (brand_id, category_name, price) VALUES (9, '아우터', 5500);
 INSERT INTO product (brand_id, category_name, price) VALUES (9, '바지', 3500);
 INSERT INTO product (brand_id, category_name, price) VALUES (9, '스니커즈', 9400);

@@ -128,31 +128,6 @@
             }
         });
     }
-
-    function searchProducts() {
-        var category = $("#searchCategory").val();
-
-        $.ajax({
-            url: '/api/products/category/prices',
-            type: 'GET',
-            data: { categoryName: category },
-            success: function (data) {
-                var productList = $('#productList');
-                productList.empty();
-                var row = '<tr>' +
-                    '<td>' + data.category + '</td>' +
-                    '<td>' + data.lowest.brand + '</td>' +
-                    '<td>' + data.lowest.price + '</td>' +
-                    '<td>' + data.highest.brand + '</td>' +
-                    '<td>' + data.highest.price + '</td>' +
-                    '</tr>';
-                productList.append(row);
-            },
-            error: function(data) {
-                alert(data.responseJSON.message);
-            }
-        });
-    }
 </script>
 </body>
 </html>

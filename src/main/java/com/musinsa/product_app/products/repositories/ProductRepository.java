@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
-	@Query("SELECT distinct p FROM Product p join fetch p.brand")
+	@Query("SELECT distinct p FROM Product p join fetch p.brand  WHERE p.categoryName = :categoryName")
 	List<Product> findByCategoryName(String categoryName);
 	List<Product> findAllByBrand(Brand brand);
 
