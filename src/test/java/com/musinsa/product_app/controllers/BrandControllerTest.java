@@ -30,7 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(BrandApiController.class)
-public class BrandIntegrationTest {
+public class BrandControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
