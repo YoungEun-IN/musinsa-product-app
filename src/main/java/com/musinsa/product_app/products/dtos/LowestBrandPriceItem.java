@@ -13,9 +13,6 @@ public class LowestBrandPriceItem {
     private double total;
     private List<CategoryPrice> categories;
 
-    @Data
-    public static class CategoryPrice {
-        private final String category;
-        private final double price;
+    public record CategoryPrice(String category, double price) {
     }
 }

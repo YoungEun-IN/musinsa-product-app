@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,6 +15,7 @@ import java.util.Objects;
 
 @Getter
 @Setter
+@Builder
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -26,10 +28,6 @@ public class Brand {
 
 	@Column(nullable = false)
 	private String name;
-
-	public Brand(String name) {
-		this.name = name;
-	}
 
 	@Override
 	public boolean equals(Object o) {
