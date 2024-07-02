@@ -83,7 +83,7 @@
             contentType: 'application/json',
             data: JSON.stringify(formData),
             success: function () {
-                alert("data added")
+                alert("데이터가 입력되었습니다.")
                 $('#productForm')[0].reset();
                 getRefresh();
             },
@@ -106,7 +106,7 @@
             contentType: 'application/json',
             data: JSON.stringify(formData),
             success: function () {
-                alert("data updated")
+                alert("데이터가 수정되었습니다.")
                 getRefresh();
             },
             error: function(data) {
@@ -120,7 +120,7 @@
             url: '/api/products/' + id,
             type: 'DELETE',
             success: function () {
-                alert("data deleted")
+                alert("데이터가 삭제되었습니다.")
                 getRefresh();
             },
             error: function(data) {

@@ -70,7 +70,7 @@
             contentType: 'application/json',
             data: JSON.stringify(formData),
             success: function () {
-                alert("data added")
+                alert("데이터가 입력되었습니다.")
                 $('#brandForm')[0].reset();
                 loadBrands();
             },
@@ -91,7 +91,7 @@
             contentType: 'application/json',
             data: JSON.stringify(formData),
             success: function () {
-                alert("data updated")
+                alert("데이터가 수정되었습니다.")
                 loadBrands();
             },
             error: function(data) {
@@ -105,7 +105,7 @@
             url: '/api/brands/' + id,
             type: 'DELETE',
             success: function () {
-                alert("data deleted")
+                alert("데이터가 삭제되었습니다.")
                 loadBrands();
             },
             error: function(data) {
